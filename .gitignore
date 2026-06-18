@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local working files
+/Ai-created/
+/product-img/
+.claude/settings.local.json
+.claude/memory/
