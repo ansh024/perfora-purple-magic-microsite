@@ -24,15 +24,15 @@ export default function Ingredients() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#0f0720] py-10 md:py-16 overflow-hidden">
+    <section ref={sectionRef} className="bg-[#0f0720] py-8 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
-        <div className={`mb-8 md:mb-16 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-4 md:mb-6">
+        <div className={`mb-5 md:mb-10 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-3 md:mb-5">
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">What&apos;s Inside</span>
           </div>
-          <h2 className="text-white font-bold mb-2 md:mb-4"
+          <h2 className="text-white font-bold mb-2"
             style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 52px)" }}>
             Science you can see.<br />
             <em className="text-[#a78bfa]">Ingredients you can trust.</em>
@@ -42,7 +42,7 @@ export default function Ingredients() {
           </p>
         </div>
 
-        {/* ── MOBILE: 2×2 grid + safety badges, no big image ── */}
+        {/* ── MOBILE: 2×2 ingredient grid + image ── */}
         <div className="md:hidden">
           <div className="grid grid-cols-2 gap-2.5 mb-4">
             {ingredients.map((ing, i) => (
@@ -59,29 +59,27 @@ export default function Ingredients() {
             ))}
           </div>
 
-          {/* Safety badges */}
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { label: "Peroxide-Free", emoji: "🚫" },
-              { label: "SLS-Free", emoji: "✓" },
-              { label: "Vegan", emoji: "🌱" },
-              { label: "Preservative-Free", emoji: "✓" },
-              { label: "Sugar-Free", emoji: "✓" },
-              { label: "Daily Use", emoji: "🔁" },
-            ].map(({ label, emoji }) => (
-              <div key={label} className="bg-white/5 border border-white/10 rounded-xl px-2 py-2.5 text-center">
-                <div className="text-sm mb-0.5">{emoji}</div>
-                <div className="text-white/60 text-[9px]" style={{ fontFamily: "var(--font-inter)" }}>{label}</div>
-              </div>
-            ))}
+          {/* Why Purple Works image */}
+          <div className={`rounded-2xl overflow-hidden transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Image
+              src="/ai-created/why-purple-new.png"
+              alt="Why Purple Works"
+              width={900}
+              height={900}
+              className="w-full h-auto"
+              sizes="100vw"
+            />
           </div>
         </div>
 
-        {/* ── DESKTOP: Two-column with product image ── */}
-        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-start transition-all duration-800 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="grid gap-4">
+        {/* ── DESKTOP: Two-column, image height matches cards ── */}
+        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-stretch transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+
+          {/* Left: ingredient cards */}
+          <div className="flex flex-col gap-4">
             {ingredients.map((ing, i) => (
-              <div key={ing.name} className={`rounded-2xl p-5 flex gap-4 items-start border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              <div key={ing.name}
+                className={`rounded-2xl p-5 flex gap-4 items-start border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 100}ms` }}>
                 <div className="text-2xl w-10 h-10 flex items-center justify-center flex-shrink-0">{ing.icon}</div>
                 <div>
@@ -92,11 +90,18 @@ export default function Ingredients() {
               </div>
             ))}
           </div>
-          <div>
-            <div className="relative rounded-3xl overflow-hidden">
-              <Image src="/ai-created/why-purple-new.png" alt="Why Purple Works" width={600} height={700} className="w-full object-cover" sizes="50vw" />
-            </div>
+
+          {/* Right: image fills the full height of the cards column */}
+          <div className="relative rounded-3xl overflow-hidden">
+            <Image
+              src="/ai-created/why-purple-new.png"
+              alt="Why Purple Works"
+              fill
+              className="object-cover object-center"
+              sizes="50vw"
+            />
           </div>
+
         </div>
 
       </div>
