@@ -69,7 +69,7 @@ export default function Reviews() {
   );
 
   return (
-    <section id="reviews" ref={sectionRef} className="bg-[#0a0614] py-10 md:py-36 overflow-hidden">
+    <section id="reviews" ref={sectionRef} className="bg-[#0a0614] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
         {/* Header */}
         <div
@@ -80,10 +80,9 @@ export default function Reviews() {
           </div>
           <h2
             className="text-white font-bold mb-2 md:mb-4"
-            style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(28px, 6vw, 72px)" }}
+            style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 52px)" }}
           >
-            6,093 smiles<br />
-            <em className="text-[#a78bfa]">later.</em>
+            6,093 smiles <em className="text-[#a78bfa]">later.</em>
           </h2>
 
           {/* Rating breakdown */}

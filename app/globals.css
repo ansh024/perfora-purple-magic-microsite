@@ -31,10 +31,11 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 4px; }
+/* Custom scrollbar — thin + light on all axes */
+::-webkit-scrollbar { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #7c3aed44; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(196, 181, 253, 0.25); border-radius: 4px; }
+* { scrollbar-width: thin; scrollbar-color: rgba(196, 181, 253, 0.25) transparent; }
 
 section {
   will-change: auto;

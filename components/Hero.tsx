@@ -18,38 +18,42 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
-      {/* Background hero image */}
-      <div className="absolute inset-0">
+      {/* Background hero image — mobile */}
+      <div className="absolute inset-0 md:hidden">
         <Image
-          src="/ai-created/purple-beats-yellow-2.png"
+          src="/ai-created/hero-mobile.png"
           alt="Purple Beats Yellow"
           fill
           priority
-          className="object-cover object-center opacity-80"
+          className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Gradient overlay — bottom fade for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+      </div>
+      {/* Background hero image — desktop */}
+      <div className="absolute inset-0 hidden md:block">
+        <Image
+          src="/ai-created/hero-desktop.png"
+          alt="Purple Beats Yellow"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
         <div className="max-w-xl">
-          {/* Eyebrow */}
-          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-8">
-            <span className="w-2 h-2 rounded-full bg-[#a78bfa] animate-pulse" />
-            <span className="text-white/80 text-xs tracking-[0.15em] uppercase font-medium">
-              Color Correction · Beauty Science
-            </span>
-          </div>
-
           {/* Headline */}
           <h1
             className="text-white font-bold leading-[0.9] mb-6"
             style={{
               fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(52px, 8vw, 96px)",
+              fontSize: "clamp(44px, 6.8vw, 82px)",
             }}
           >
             Purple
@@ -60,11 +64,10 @@ export default function Hero() {
           </h1>
 
           {/* Subline */}
-          <p className="text-white/70 text-lg font-light leading-relaxed mb-10 max-w-sm" style={{ fontFamily: "var(--font-inter)" }}>
-            Visible whitening in{" "}
-            <span className="text-white font-medium">60 seconds</span>.
-            <br />
-            No peroxide. No bleach. Just science.
+          <p className="text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
+            Visible teeth whitening in{" "}
+            <span className="text-white font-medium">60 seconds</span>.<br />
+            No gimmick. Just science.
           </p>
 
           {/* CTA row */}

@@ -1,32 +1,41 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileHidden, setMobileHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      setScrolled(currentY > 40);
+      // Mobile only: hide on scroll down, show on scroll up
+      if (currentY > lastScrollY.current && currentY > 80) {
+        setMobileHidden(true);
+      } else {
+        setMobileHidden(false);
+      }
+      lastScrollY.current = currentY;
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 md:translate-y-0 ${
+        mobileHidden ? "-translate-y-full" : "translate-y-0"
+      } ${
         scrolled
           ? "bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <span
-          className="font-serif text-white text-xl font-bold tracking-tight italic"
-          style={{ fontFamily: "var(--font-playfair)" }}
-        >
-          perfora
-        </span>
+        <Image src="/perfora-logo.png" alt="Perfora" width={192} height={58} className="h-[58px] w-auto object-contain brightness-0 invert" priority />
 
         <div className="hidden md:flex items-center gap-8 text-white/70 text-sm font-light tracking-wide">
           <a href="#science" className="hover:text-white transition-colors">Science</a>

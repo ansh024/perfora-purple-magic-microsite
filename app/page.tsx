@@ -1,10 +1,10 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import ScienceSection from "@/components/ScienceSection";
-import SixtySeconds from "@/components/SixtySeconds";
 import HowToUse from "@/components/HowToUse";
 import Ingredients from "@/components/Ingredients";
 import Results from "@/components/Results";
+import VideoReviews from "@/components/VideoReviews";
 import Reviews from "@/components/Reviews";
 import Trust from "@/components/Trust";
 import BuySection from "@/components/BuySection";
@@ -17,13 +17,13 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <ScienceSection />
-        <SixtySeconds />
+        <BuySection />
         <HowToUse />
+        <ScienceSection />
         <Ingredients />
         <Results />
         <Trust />
-        <BuySection />
+        <VideoReviews />
         <Reviews />
       </main>
       <Footer />
