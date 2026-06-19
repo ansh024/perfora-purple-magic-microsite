@@ -1,14 +1,11 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="bg-[#060310] border-t border-white/5 py-12">
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
-          <span
-            className="text-white text-xl font-bold italic"
-            style={{ fontFamily: "var(--font-playfair)" }}
-          >
-            perfora
-          </span>
+          <Image src="/perfora-logo.png" alt="Perfora" width={100} height={32} className="h-8 w-auto object-contain" />
           <p className="text-white/30 text-xs mt-1" style={{ fontFamily: "var(--font-inter)" }}>
             Science-backed oral care.
           </p>
