@@ -35,7 +35,7 @@ export default function Nav() {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Image src="/perfora-logo.png" alt="Perfora" width={192} height={58} className="h-[58px] w-auto object-contain" priority />
+        <Image src="/perfora-logo.png" alt="Perfora" width={192} height={58} className="h-[58px] w-auto object-contain brightness-0 invert" priority />
 
         <div className="hidden md:flex items-center gap-8 text-white/70 text-sm font-light tracking-wide">
           <a href="#science" className="hover:text-white transition-colors">Science</a>

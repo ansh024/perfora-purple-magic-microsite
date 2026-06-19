@@ -72,10 +72,9 @@ export default function Hero() {
           </h1>
 
           {/* Subline */}
-          <p className="text-white/70 text-[22px] font-light leading-relaxed mb-10 max-w-sm" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
             Visible teeth whitening in{" "}
-            <span className="text-white font-medium">60 seconds</span>.
-            <br />
+            <span className="text-white font-medium">60 seconds</span>.{" "}
             No gimmick. Just science.
           </p>
 

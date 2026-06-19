@@ -59,7 +59,7 @@ export default function BuySection() {
           </div>
           <h2 className="text-[#1a0a3d] font-bold mb-2 md:mb-3"
             style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(24px, 5vw, 56px)" }}>
-            Visibly whiter.<br /><em className="text-[#7c3aed]">Starting today.</em>
+            Visibly whiter. <em className="text-[#7c3aed]">Starting today.</em>
           </h2>
           <p className="text-[#1a0a3d] font-light text-base md:text-lg" style={{ fontFamily: "var(--font-inter)" }}>
             Join 6,093 happy customers. Free toothpaste on orders above ₹960.
