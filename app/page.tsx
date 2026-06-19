@@ -4,6 +4,7 @@ import ScienceSection from "@/components/ScienceSection";
 import HowToUse from "@/components/HowToUse";
 import Ingredients from "@/components/Ingredients";
 import Results from "@/components/Results";
+import VideoReviews from "@/components/VideoReviews";
 import Reviews from "@/components/Reviews";
 import Trust from "@/components/Trust";
 import BuySection from "@/components/BuySection";
@@ -22,6 +23,7 @@ export default function Home() {
         <Ingredients />
         <Results />
         <Trust />
+        <VideoReviews />
         <Reviews />
       </main>
       <Footer />

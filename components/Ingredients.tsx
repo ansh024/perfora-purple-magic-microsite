@@ -72,14 +72,14 @@ export default function Ingredients() {
           </div>
         </div>
 
-        {/* ── DESKTOP: Two-column ── */}
-        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-start transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        {/* ── DESKTOP: Two-column, cards stretch to match image height ── */}
+        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-stretch transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
 
-          {/* Left: ingredient cards */}
+          {/* Left: ingredient cards, each flex-1 to share the full column height */}
           <div className="flex flex-col gap-4">
             {ingredients.map((ing, i) => (
               <div key={ing.name}
-                className={`rounded-2xl p-5 flex gap-4 items-start border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                className={`flex-1 rounded-2xl p-5 flex gap-4 items-center border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
                 style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 100}ms` }}>
                 <div className="text-2xl w-10 h-10 flex items-center justify-center flex-shrink-0">{ing.icon}</div>
                 <div>
@@ -91,14 +91,14 @@ export default function Ingredients() {
             ))}
           </div>
 
-          {/* Right: full image, no cropping */}
+          {/* Right: image */}
           <div className="rounded-3xl overflow-hidden">
             <Image
               src="/ai-created/why-purple-new.png"
               alt="Why Purple Works"
               width={600}
               height={600}
-              className="w-full h-auto"
+              className="w-full h-full object-cover"
               sizes="50vw"
             />
           </div>
