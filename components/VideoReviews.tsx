@@ -115,7 +115,7 @@ export default function VideoReviews() {
         <div className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
           <div className="flex gap-3 md:gap-4 overflow-x-auto pb-4 px-5 md:px-6 scrollbar-hide snap-x snap-mandatory">
             {videos.map((v) => (
-              <div key={v.id} className="flex-shrink-0 w-[160px] md:w-[200px] snap-start">
+              <div key={v.id} className="flex-shrink-0 w-[192px] md:w-[240px] snap-start">
 
                 {/* Video thumbnail card */}
                 <div className="relative rounded-2xl overflow-hidden aspect-[3/4] mb-3 cursor-pointer group">
