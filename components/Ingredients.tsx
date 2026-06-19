@@ -54,7 +54,7 @@ export default function Ingredients() {
                 <div className="text-xl mb-1.5">{ing.icon}</div>
                 <div className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
                 <div className="font-bold text-[#1a0a3d] text-sm mb-1" style={{ fontFamily: "var(--font-playfair)" }}>{ing.name}</div>
-                <p className="text-[#777] text-[10px] leading-snug" style={{ fontFamily: "var(--font-inter)" }}>{ing.desc}</p>
+                <p className="text-[#444] text-xs leading-snug" style={{ fontFamily: "var(--font-inter)" }}>{ing.desc}</p>
               </div>
             ))}
           </div>
@@ -87,29 +87,14 @@ export default function Ingredients() {
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
                   <h3 className="font-bold text-[#1a0a3d] text-lg mb-1" style={{ fontFamily: "var(--font-playfair)" }}>{ing.name}</h3>
-                  <p className="text-[#666] text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{ing.desc}</p>
+                  <p className="text-[#444] text-base leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{ing.desc}</p>
                 </div>
               </div>
             ))}
           </div>
           <div>
-            <div className="relative rounded-3xl overflow-hidden mb-6">
+            <div className="relative rounded-3xl overflow-hidden">
               <Image src="/ai-created/why-purple-new.png" alt="Why Purple Works" width={600} height={700} className="w-full object-cover" sizes="50vw" />
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {[
-                { label: "Peroxide-Free", emoji: "🚫" },
-                { label: "SLS-Free", emoji: "✓" },
-                { label: "Vegan", emoji: "🌱" },
-                { label: "Preservative-Free", emoji: "✓" },
-                { label: "Sugar-Free", emoji: "✓" },
-                { label: "Daily Use", emoji: "🔁" },
-              ].map(({ label, emoji }) => (
-                <div key={label} className="bg-white/5 border border-white/10 rounded-xl px-3 py-3 text-center">
-                  <div className="text-base mb-1">{emoji}</div>
-                  <div className="text-white/60 text-xs" style={{ fontFamily: "var(--font-inter)" }}>{label}</div>
-                </div>
-              ))}
             </div>
           </div>
         </div>

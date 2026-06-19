@@ -66,7 +66,7 @@ export default function Trust() {
                   style={{ transitionDelay: `${i * 60}ms` }}>
                   <div className="text-lg mb-1">{p.icon}</div>
                   <div className="text-[#1a0a3d] font-semibold text-[10px] leading-tight mb-0.5" style={{ fontFamily: "var(--font-playfair)" }}>{p.title}</div>
-                  <div className="text-[#bbb] text-[9px]" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</div>
+                  <div className="text-[#444] text-xs" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</div>
                 </div>
               ))}
             </div>
@@ -92,7 +92,7 @@ export default function Trust() {
             <h2 className="text-[#1a0a3d] font-bold mb-4" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(28px, 4vw, 48px)" }}>
               Safe enough for<br /><em className="text-[#7c3aed]">every smile.</em>
             </h2>
-            <p className="text-[#888] mb-10 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
+            <p className="text-[#444] mb-10 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
               Formulated with care for sensitive teeth, daily users, and anyone let down by harsh whitening before.
             </p>
             <div className="grid grid-cols-2 gap-4">
@@ -102,7 +102,7 @@ export default function Trust() {
                   style={{ transitionDelay: `${i * 80 + 200}ms` }}>
                   <div className="text-xl mb-2">{p.icon}</div>
                   <div className="text-[#1a0a3d] font-semibold text-sm mb-0.5" style={{ fontFamily: "var(--font-playfair)" }}>{p.title}</div>
-                  <div className="text-[#aaa] text-xs" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</div>
+                  <div className="text-[#444] text-sm" style={{ fontFamily: "var(--font-inter)" }}>{p.desc}</div>
                 </div>
               ))}
             </div>

@@ -63,7 +63,7 @@ export default function HowToUse() {
                       <span className="text-[#a78bfa] text-[9px] font-semibold tracking-widest uppercase">{step.num}</span>
                       <span className="text-[#1a0a3d] font-semibold text-sm" style={{ fontFamily: "var(--font-playfair)" }}>{step.title}</span>
                     </div>
-                    <p className="text-[#999] text-[11px] leading-snug mt-0.5" style={{ fontFamily: "var(--font-inter)" }}>{step.desc}</p>
+                    <p className="text-[#444] text-xs leading-snug mt-0.5" style={{ fontFamily: "var(--font-inter)" }}>{step.desc}</p>
                   </div>
                   {i < steps.length - 1 && <div className="w-px h-8 bg-[#ede9fe] hidden" />}
                 </div>
@@ -91,7 +91,7 @@ export default function HowToUse() {
             <h2 className="text-[#1a0a3d] font-bold mb-3" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(28px, 4vw, 48px)" }}>
               3 Steps.<br /><em className="text-[#7c3aed]">Twice Daily.</em>
             </h2>
-            <p className="text-[#888] mb-12 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
+            <p className="text-[#444] mb-12 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
               Fits seamlessly into your existing routine — no extra time needed.
             </p>
             <div className="flex flex-col gap-8">
@@ -104,7 +104,7 @@ export default function HowToUse() {
                   <div className="pt-2">
                     <div className="text-[#a78bfa] text-xs font-semibold tracking-widest uppercase mb-1">{step.num}</div>
                     <h3 className="text-[#1a0a3d] font-semibold text-xl mb-1" style={{ fontFamily: "var(--font-playfair)" }}>{step.title}</h3>
-                    <p className="text-[#888] text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{step.desc}</p>
+                    <p className="text-[#444] text-base leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{step.desc}</p>
                   </div>
                 </div>
               ))}
