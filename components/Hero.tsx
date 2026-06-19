@@ -61,7 +61,7 @@ export default function Hero() {
             className="text-white font-bold leading-[0.9] mb-6"
             style={{
               fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(52px, 8vw, 96px)",
+              fontSize: "clamp(44px, 6.8vw, 82px)",
             }}
           >
             Purple
@@ -72,11 +72,11 @@ export default function Hero() {
           </h1>
 
           {/* Subline */}
-          <p className="text-white/70 text-lg font-light leading-relaxed mb-10 max-w-sm" style={{ fontFamily: "var(--font-inter)" }}>
-            Visible whitening in{" "}
+          <p className="text-white/70 text-[22px] font-light leading-relaxed mb-10 max-w-sm" style={{ fontFamily: "var(--font-inter)" }}>
+            Visible teeth whitening in{" "}
             <span className="text-white font-medium">60 seconds</span>.
             <br />
-            No peroxide. No bleach. Just science.
+            No gimmick. Just science.
           </p>
 
           {/* CTA row */}

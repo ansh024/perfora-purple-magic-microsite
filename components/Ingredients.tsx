@@ -72,8 +72,8 @@ export default function Ingredients() {
           </div>
         </div>
 
-        {/* ── DESKTOP: Two-column, image height matches cards ── */}
-        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-stretch transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        {/* ── DESKTOP: Two-column ── */}
+        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-start transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
 
           {/* Left: ingredient cards */}
           <div className="flex flex-col gap-4">
@@ -91,13 +91,14 @@ export default function Ingredients() {
             ))}
           </div>
 
-          {/* Right: image fills the full height of the cards column */}
-          <div className="relative rounded-3xl overflow-hidden">
+          {/* Right: full image, no cropping */}
+          <div className="rounded-3xl overflow-hidden">
             <Image
               src="/ai-created/why-purple-new.png"
               alt="Why Purple Works"
-              fill
-              className="object-cover object-center"
+              width={600}
+              height={600}
+              className="w-full h-auto"
               sizes="50vw"
             />
           </div>
