@@ -1,7 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import ScienceSection from "@/components/ScienceSection";
-import SixtySeconds from "@/components/SixtySeconds";
 import HowToUse from "@/components/HowToUse";
 import Ingredients from "@/components/Ingredients";
 import Results from "@/components/Results";
@@ -18,7 +17,6 @@ export default function Home() {
       <main>
         <Hero />
         <ScienceSection />
-        <SixtySeconds />
         <HowToUse />
         <Ingredients />
         <Results />

@@ -18,19 +18,31 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
-      {/* Background hero image */}
-      <div className="absolute inset-0">
+      {/* Background hero image — mobile */}
+      <div className="absolute inset-0 md:hidden">
         <Image
-          src="/ai-created/purple-beats-yellow-2.png"
+          src="/ai-created/hero-mobile.png"
           alt="Purple Beats Yellow"
           fill
           priority
-          className="object-cover object-center opacity-80"
+          className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Gradient overlay — bottom fade for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/10 to-black/70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
+      </div>
+      {/* Background hero image — desktop */}
+      <div className="absolute inset-0 hidden md:block">
+        <Image
+          src="/ai-created/hero-desktop.png"
+          alt="Purple Beats Yellow"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
