@@ -24,7 +24,7 @@ export default function Ingredients() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#0f0720] py-10 md:py-36 overflow-hidden">
+    <section ref={sectionRef} className="bg-[#0f0720] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
@@ -94,7 +94,7 @@ export default function Ingredients() {
           </div>
           <div>
             <div className="relative rounded-3xl overflow-hidden mb-6">
-              <Image src="/ai-created/why-purple-works.png" alt="Why Purple Works" width={600} height={700} className="w-full object-cover" sizes="50vw" />
+              <Image src="/ai-created/why-purple-new.png" alt="Why Purple Works" width={600} height={700} className="w-full object-cover" sizes="50vw" />
             </div>
             <div className="grid grid-cols-3 gap-3">
               {[

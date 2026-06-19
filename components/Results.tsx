@@ -17,7 +17,7 @@ export default function Results() {
   }, []);
 
   return (
-    <section id="results" ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-36 overflow-hidden">
+    <section id="results" ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
@@ -25,13 +25,10 @@ export default function Results() {
           <div className="inline-flex items-center gap-2 bg-[#ede9fe] rounded-full px-4 py-1.5 mb-3 md:mb-6">
             <span className="text-[#7c3aed] text-xs tracking-[0.15em] uppercase font-semibold">Real Results</span>
           </div>
-          <h2 className="text-[#1a0a3d] font-bold mb-2 md:mb-4"
+          <h2 className="text-[#1a0a3d] font-bold"
             style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 52px)" }}>
             See the Transformation.
           </h2>
-          <p className="text-[#888] font-light max-w-md mx-auto leading-relaxed text-sm md:text-lg" style={{ fontFamily: "var(--font-inter)" }}>
-            One brush. Visible results. No bleach, no pain — just purple doing its thing.
-          </p>
         </div>
 
         {/* Transformation banner */}

@@ -26,7 +26,7 @@ export default function Trust() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-36 overflow-hidden">
+    <section ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* ── MOBILE: Image banner + compact promise grid ── */}
@@ -40,13 +40,21 @@ export default function Trust() {
               Safe enough for <em className="text-[#7c3aed]">every smile.</em>
             </h2>
 
-            {/* Model image — banner height */}
-            <div className="relative rounded-2xl overflow-hidden mb-4 h-48">
+            {/* Model image */}
+            <div className="relative rounded-2xl overflow-hidden mb-4 h-80">
               <Image src="/ai-created/model-holding.png" alt="Perfora Purple Magic" fill className="object-cover object-top" sizes="100vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/60 to-transparent" />
+              {/* Floating pill — top right */}
+              <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-[#7c3aed]" />
+                <span className="text-[#1a0a3d] text-[10px] font-semibold">Peroxide-Free</span>
+              </div>
+              {/* Floating card — bottom */}
               <div className="absolute bottom-3 left-3 right-3">
-                <div className="text-white font-bold text-base" style={{ fontFamily: "var(--font-playfair)" }}>Confidence starts here.</div>
-                <div className="text-white/60 text-[10px]">Results you can see. Science you can trust.</div>
+                <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3">
+                  <div className="text-white font-bold text-sm mb-0.5" style={{ fontFamily: "var(--font-playfair)" }}>Confidence starts here.</div>
+                  <div className="text-white/60 text-[10px]">Results you can see. Science you can trust.</div>
+                </div>
               </div>
             </div>
 

@@ -23,7 +23,7 @@ export default function HowToUse() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-36 overflow-hidden">
+    <section ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* ── MOBILE: Horizontal image strip + compact steps ── */}
@@ -37,13 +37,19 @@ export default function HowToUse() {
               3 Steps. <em className="text-[#7c3aed]">Twice Daily.</em>
             </h2>
 
-            {/* Lifestyle image — compact */}
-            <div className="relative rounded-2xl overflow-hidden mb-4 h-40">
+            {/* Lifestyle image */}
+            <div className="relative rounded-2xl overflow-hidden mb-4 h-72">
               <Image src="/ai-created/bathroom-lifestyle.png" alt="Purple Magic in use" fill className="object-cover object-center" sizes="100vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/40 to-transparent" />
-              <div className="absolute bottom-3 left-3 bg-white rounded-lg px-3 py-1.5">
-                <div className="text-[#7c3aed] text-sm font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Daily Use</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/50 to-transparent" />
+              {/* Floating badge — top right */}
+              <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-lg">
+                <div className="text-[#7c3aed] text-xs font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Daily Use</div>
                 <div className="text-[#888] text-[9px]">Safe every day</div>
+              </div>
+              {/* Floating stat — bottom left */}
+              <div className="absolute bottom-3 left-3 bg-[#1a0a3d]/80 backdrop-blur-sm rounded-xl px-3 py-2 border border-white/10">
+                <div className="text-white text-xs font-semibold" style={{ fontFamily: "var(--font-playfair)" }}>60 sec</div>
+                <div className="text-white/60 text-[9px]">Visible results</div>
               </div>
             </div>
 
