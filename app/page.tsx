@@ -16,12 +16,12 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <ScienceSection />
+        <BuySection />
         <HowToUse />
+        <ScienceSection />
         <Ingredients />
         <Results />
         <Trust />
-        <BuySection />
         <Reviews />
       </main>
       <Footer />
