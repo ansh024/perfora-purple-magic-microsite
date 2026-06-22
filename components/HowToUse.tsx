@@ -4,10 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const steps = [
-  { num: "01", icon: "💧", title: "Pump", desc: "2 pumps onto your toothbrush alongside your regular toothpaste." },
-  { num: "02", icon: "🪥", title: "Brush", desc: "Brush gently for 2 minutes, twice daily." },
-  { num: "03", icon: "✨", title: "Reveal", desc: "Rinse and see the difference from your very first use." },
+  { num: "01", icon: "💧", title: "Pump", desc: "Take 2 pumps on soft bristles toothbrush." },
+  { num: "02", icon: "🪥", title: "Brush", desc: "Brush for 30 to 60 seconds.*" },
+  { num: "03", icon: "✨", title: "Rinse", desc: "Rinse and see the magic." },
 ];
+
+const footnote = "*Highly recommend using a toothbrush with soft bristles. This serum is not a substitute for toothpaste. Use regular toothpaste twice a day for 2 minutes.";
 
 export default function HowToUse() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -34,7 +36,7 @@ export default function HowToUse() {
             </div>
             <h2 className="text-[#1a0a3d] font-bold mb-4"
               style={{ fontFamily: "var(--font-playfair)", fontSize: "24px" }}>
-              3 Steps. <em className="text-[#7c3aed]">Twice Daily.</em>
+              Super easy <em className="text-[#7c3aed]">to use.</em>
             </h2>
 
             {/* Lifestyle image */}
@@ -69,6 +71,12 @@ export default function HowToUse() {
                 </div>
               ))}
             </div>
+
+            {/* Tagline + footnote */}
+            <div className="mt-5 pt-4 border-t border-[#ede9fe]">
+              <p className="text-[#1a0a3d] font-bold text-sm mb-2" style={{ fontFamily: "var(--font-playfair)" }}>Instantly whiter teeth in 60 seconds!</p>
+              <p className="text-[#888] text-[10px] leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{footnote}</p>
+            </div>
           </div>
         </div>
 
@@ -89,10 +97,10 @@ export default function HowToUse() {
               <span className="text-[#7c3aed] text-xs tracking-[0.15em] uppercase font-semibold">How To Use</span>
             </div>
             <h2 className="text-[#1a0a3d] font-bold mb-3" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(28px, 4vw, 48px)" }}>
-              3 Steps.<br /><em className="text-[#7c3aed]">Twice Daily.</em>
+              Super easy <em className="text-[#7c3aed]">to use.</em>
             </h2>
-            <p className="text-[#444] mb-12 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
-              Fits seamlessly into your existing routine — no extra time needed.
+            <p className="text-[#444] mb-10 font-light leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
+              Instantly whiter teeth in 60 seconds!
             </p>
             <div className="flex flex-col gap-8">
               {steps.map((step, i) => (
@@ -109,6 +117,7 @@ export default function HowToUse() {
                 </div>
               ))}
             </div>
+            <p className="text-[#888] text-xs leading-relaxed mt-8 pt-6 border-t border-[#ede9fe]" style={{ fontFamily: "var(--font-inter)" }}>{footnote}</p>
           </div>
         </div>
 
