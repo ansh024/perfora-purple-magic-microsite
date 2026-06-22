@@ -61,7 +61,7 @@ export default function FAQ() {
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">FAQ</span>
           </div>
           <h2 className="text-white font-bold" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 48px)" }}>
-            Questions? <em className="text-[#a78bfa]">Answered.</em>
+            Everything you wanted <em className="text-[#a78bfa]">to know.</em>
           </h2>
         </div>
 
