@@ -6,6 +6,7 @@ import Ingredients from "@/components/Ingredients";
 import Results from "@/components/Results";
 import VideoReviews from "@/components/VideoReviews";
 import Reviews from "@/components/Reviews";
+import FAQ from "@/components/FAQ";
 import Trust from "@/components/Trust";
 import BuySection from "@/components/BuySection";
 import StickyMobileCTA from "@/components/StickyMobileCTA";
@@ -25,6 +26,7 @@ export default function Home() {
         <Trust />
         <VideoReviews />
         <Reviews />
+        <FAQ />
       </main>
       <Footer />
       <StickyMobileCTA />
