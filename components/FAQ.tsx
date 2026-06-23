@@ -9,7 +9,7 @@ const faqs = [
   },
   {
     q: "How long does it take to see results?",
-    a: "You'll notice a difference from day one. Consistent use over 2–8 weeks can deliver up to 4 shades whiter teeth.",
+    a: "Purple Serum delivers 2x whiter teeth in just 2 weeks with consistent use.",
   },
   {
     q: "Are there any side effects?",
@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: "Can it replace my regular toothpaste?",
-    a: "No — use it as an add-on to your regular brushing routine, not a replacement. Apply 2 pumps on your toothbrush alongside your toothpaste, brush for 30–60 seconds, and rinse.",
+    a: "No — use it as an add-on to your regular brushing routine. This is not a replacement. Apply 2 pumps on a soft bristle toothbrush. Brush for 30–60 seconds & rinse!",
   },
   {
     q: "Can children use it?",
-    a: "Yes, the Purple Magic Whitening Serum is safe for children above the age of 10.",
+    a: "Yes, the Purple Magic Whitening Serum is safe for children above 12 years of age.",
   },
   {
     q: "How do I dispense it from the bottle?",

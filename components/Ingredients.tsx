@@ -6,8 +6,7 @@ import Image from "next/image";
 const ingredients = [
   { icon: "🟣", name: "Purple Pigment", role: "Color Correction", desc: "Instantly neutralizes yellow tones. Results visible in 60 seconds.", bg: "#f5f3ff", border: "#ddd6fe", label: "#7c3aed" },
   { icon: "🦷", name: "Nano Hydroxyapatite", role: "Enamel Repair", desc: "Remineralizes and strengthens enamel with every brush.", bg: "#f0f9ff", border: "#bae6fd", label: "#0369a1" },
-  { icon: "🍍", name: "Bromelain", role: "Stain Removal", desc: "Pineapple-derived enzyme that breaks down protein-bound stains.", bg: "#fefce8", border: "#fef08a", label: "#a16207" },
-  { icon: "🌿", name: "Papain", role: "Plaque Defense", desc: "Papaya enzyme for gentle stain removal and lasting cleanliness.", bg: "#f0fdf4", border: "#bbf7d0", label: "#15803d" },
+  { icon: "🍍", name: "Bromelain & Papain", role: "Enzymatic Stain Removal", desc: "Pineapple & Papaya derived enzymes that gently break down protein-bound stains.", bg: "#fefce8", border: "#fef08a", label: "#a16207" },
 ];
 
 export default function Ingredients() {
@@ -38,7 +37,7 @@ export default function Ingredients() {
             <em className="text-[#a78bfa]">Ingredients you can trust.</em>
           </h2>
           <p className="text-white/40 font-light leading-relaxed text-sm md:text-base" style={{ fontFamily: "var(--font-inter)" }}>
-            No filler. No harsh chemicals. Just what works.
+            No fillers.*
           </p>
         </div>
 
