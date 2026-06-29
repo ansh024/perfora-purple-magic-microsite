@@ -2,9 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap } from "@/lib/gsap";
 
 export default function Hero() {
   const productRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -13,11 +15,23 @@ export default function Hero() {
       productRef.current.style.transform = `translateY(${y * 0.12}px)`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-line",  { y: 60, opacity: 0, stagger: 0.15, duration: 1.0 })
+        .from(".hero-sub",   { y: 24, opacity: 0, duration: 0.8 }, "-=0.45")
+        .from(".hero-cta",   { y: 20, opacity: 0, duration: 0.7 }, "-=0.35")
+        .from(".hero-stat",  { y: 16, opacity: 0, duration: 0.6 }, "-=0.3");
+    }, sectionRef);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
+    <section ref={sectionRef} className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
       {/* Background hero image — mobile */}
       <div className="absolute inset-0 md:hidden">
         <Image
@@ -56,22 +70,20 @@ export default function Hero() {
               fontSize: "clamp(44px, 6.8vw, 82px)",
             }}
           >
-            Purple
-            <br />
-            <em className="text-[#a78bfa]">Beats</em>
-            <br />
-            Yellow.
+            <span className="hero-line block">Purple</span>
+            <span className="hero-line block"><em className="text-[#a78bfa]">Beats</em></span>
+            <span className="hero-line block">Yellow.</span>
           </h1>
 
           {/* Subline */}
-          <p className="text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="hero-sub text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
             Visible teeth whitening in{" "}
             <span className="text-white font-medium">60 seconds</span>.<br />
             No gimmick. Just science.
           </p>
 
           {/* CTA row */}
-          <div className="flex flex-col sm:flex-row gap-4 items-start">
+          <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start">
             <a
               href="#buy"
               className="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-semibold text-base px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_32px_rgba(124,58,237,0.5)]"
@@ -94,7 +106,7 @@ export default function Hero() {
           </div>
 
           {/* Review micro-stat */}
-          <div className="flex items-center gap-3 mt-10">
+          <div className="hero-stat flex items-center gap-3 mt-10">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <svg key={i} className="w-4 h-4 text-[#a78bfa]" fill="currentColor" viewBox="0 0 20 20">

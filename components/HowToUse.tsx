@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const steps = [
   { num: "01", icon: "💧", title: "Pump", desc: "Take 2 pumps on soft bristles toothbrush." },
@@ -13,15 +14,27 @@ const footnote = "*Highly recommend using a toothbrush with soft bristles. This 
 
 export default function HowToUse() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.2 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const ctx = gsap.context(() => {
+      // Header
+      gsap.from(".how-header", {
+        y: 36, opacity: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".how-header", start: "top 85%" },
+      });
+      // Image
+      gsap.from(".how-image", {
+        scale: 1.05, opacity: 0, duration: 1.0, ease: "power3.out",
+        scrollTrigger: { trigger: ".how-image", start: "top 85%" },
+      });
+      // Steps stagger
+      gsap.from(".how-step", {
+        y: 30, opacity: 0, stagger: 0.15, duration: 0.75, ease: "power3.out",
+        scrollTrigger: { trigger: ".how-step", start: "top 88%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -30,7 +43,7 @@ export default function HowToUse() {
 
         {/* ── MOBILE: Horizontal image strip + compact steps ── */}
         <div className="md:hidden">
-          <div className={`transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="how-header">
             <div className="inline-flex items-center gap-2 bg-[#ede9fe] rounded-full px-3 py-1 mb-3">
               <span className="text-[#7c3aed] text-[10px] tracking-[0.12em] uppercase font-semibold">How To Use</span>
             </div>
@@ -40,7 +53,7 @@ export default function HowToUse() {
             </h2>
 
             {/* Lifestyle image */}
-            <div className="relative rounded-2xl overflow-hidden mb-4 h-72">
+            <div className="how-image relative rounded-2xl overflow-hidden mb-4 h-72">
               <Image src="/ai-created/bathroom-lifestyle.png" alt="Purple Magic in use" fill className="object-cover object-center" sizes="100vw" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/50 to-transparent" />
               {/* Floating badge — top right */}
@@ -58,7 +71,7 @@ export default function HowToUse() {
             {/* Steps — horizontal compact */}
             <div className="flex flex-col gap-3">
               {steps.map((step, i) => (
-                <div key={step.num} className="flex items-center gap-3">
+                <div key={step.num} className="how-step flex items-center gap-3">
                   <div className="w-9 h-9 rounded-xl bg-[#1a0a3d] flex items-center justify-center text-base flex-shrink-0">{step.icon}</div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
@@ -82,17 +95,11 @@ export default function HowToUse() {
 
         {/* ── DESKTOP: Original two-column layout ── */}
         <div className="hidden md:grid md:grid-cols-2 gap-16 items-center">
-          <div className={`transition-all duration-800 ${visible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"}`}>
-            <div className="relative rounded-3xl overflow-hidden shadow-xl aspect-[4/5]">
-              <Image src="/ai-created/bathroom-lifestyle.png" alt="Purple Magic Serum in use" fill className="object-cover" sizes="50vw" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/30 to-transparent" />
-            </div>
-            <div className="absolute -bottom-6 -right-6 md:bottom-8 md:-right-8 bg-white rounded-2xl shadow-xl px-6 py-4 border border-[#ede9fe] hidden md:block">
-              <div className="text-[#7c3aed] text-2xl font-bold" style={{ fontFamily: "var(--font-playfair)" }}>Daily Use</div>
-              <div className="text-[#888] text-xs mt-0.5">Safe every single day</div>
-            </div>
+          <div className="how-image relative rounded-3xl overflow-hidden shadow-xl aspect-[4/5]">
+            <Image src="/ai-created/bathroom-lifestyle.png" alt="Purple Magic Serum in use" fill className="object-cover" sizes="50vw" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a0a3d]/30 to-transparent" />
           </div>
-          <div className={`transition-all duration-800 delay-200 ${visible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}>
+          <div className="how-header">
             <div className="inline-flex items-center gap-2 bg-[#ede9fe] rounded-full px-4 py-1.5 mb-6">
               <span className="text-[#7c3aed] text-xs tracking-[0.15em] uppercase font-semibold">How To Use</span>
             </div>
@@ -104,7 +111,7 @@ export default function HowToUse() {
             </p>
             <div className="flex flex-col gap-8">
               {steps.map((step, i) => (
-                <div key={step.num} className={`flex gap-6 items-start transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: `${300 + i * 120}ms` }}>
+                <div key={step.num} className="how-step flex gap-6 items-start">
                   <div className="flex flex-col items-center gap-1">
                     <div className="w-12 h-12 rounded-2xl bg-[#1a0a3d] flex items-center justify-center text-lg flex-shrink-0">{step.icon}</div>
                     {i < steps.length - 1 && <div className="w-px h-8 bg-[#ede9fe]" />}

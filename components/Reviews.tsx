@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const reviews = [
   {
@@ -47,15 +48,20 @@ const reviews = [
 
 export default function Reviews() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const ctx = gsap.context(() => {
+      gsap.from(".reviews-header", {
+        y: 36, opacity: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".reviews-header", start: "top 85%" },
+      });
+      gsap.from(".review-card", {
+        y: 40, opacity: 0, stagger: 0.1, duration: 0.75, ease: "power3.out",
+        scrollTrigger: { trigger: ".review-card", start: "top 90%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   const StarRow = ({ count }: { count: number }) => (
@@ -72,9 +78,7 @@ export default function Reviews() {
     <section id="reviews" ref={sectionRef} className="bg-[#0a0614] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
         {/* Header */}
-        <div
-          className={`text-center mb-8 md:mb-16 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-        >
+        <div className="reviews-header text-center mb-8 md:mb-16">
           <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-4 md:mb-6">
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">Social Proof</span>
           </div>
@@ -117,14 +121,11 @@ export default function Reviews() {
         </div>
 
         {/* Review cards — horizontal scroll on mobile */}
-        <div
-          className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        >
-          <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3">
+        <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 md:grid md:grid-cols-3">
             {reviews.map((review, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 w-[80vw] md:w-auto snap-start bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-[#7c3aed]/50 transition-all duration-300"
+                className="review-card flex-shrink-0 w-[80vw] md:w-auto snap-start bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-[#7c3aed]/50 transition-all duration-300"
               >
                 <StarRow count={review.rating} />
                 <p
@@ -148,7 +149,6 @@ export default function Reviews() {
               </div>
             ))}
           </div>
-        </div>
       </div>
     </section>
   );

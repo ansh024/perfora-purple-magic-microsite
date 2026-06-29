@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const ingredients = [
   { icon: "🟣", name: "Purple Pigment", role: "Color Correction", desc: "Instantly neutralizes yellow tones. Results visible in 60 seconds.", bg: "#f5f3ff", border: "#ddd6fe", label: "#7c3aed" },
@@ -11,15 +12,24 @@ const ingredients = [
 
 export default function Ingredients() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const ctx = gsap.context(() => {
+      gsap.from(".ing-header", {
+        y: 36, opacity: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".ing-header", start: "top 85%" },
+      });
+      gsap.from(".ing-card", {
+        y: 40, opacity: 0, stagger: 0.12, duration: 0.8, ease: "power3.out",
+        scrollTrigger: { trigger: ".ing-card", start: "top 88%" },
+      });
+      gsap.from(".ing-image", {
+        scale: 1.05, opacity: 0, duration: 1.0, ease: "power3.out",
+        scrollTrigger: { trigger: ".ing-image", start: "top 85%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
@@ -27,7 +37,7 @@ export default function Ingredients() {
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
-        <div className={`mb-5 md:mb-10 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="ing-header mb-5 md:mb-10">
           <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-3 md:mb-5">
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">What&apos;s Inside</span>
           </div>
@@ -44,11 +54,11 @@ export default function Ingredients() {
         {/* ── MOBILE: 2×2 ingredient grid + image ── */}
         <div className="md:hidden">
           <div className="grid grid-cols-2 gap-2.5 mb-4">
-            {ingredients.map((ing, i) => (
+            {ingredients.map((ing) => (
               <div
                 key={ing.name}
-                className={`rounded-2xl p-3.5 border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 80}ms` }}
+                className="ing-card rounded-2xl p-3.5 border"
+                style={{ background: ing.bg, borderColor: ing.border }}
               >
                 <div className="text-xl mb-1.5">{ing.icon}</div>
                 <div className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
@@ -59,7 +69,7 @@ export default function Ingredients() {
           </div>
 
           {/* Why Purple Works image */}
-          <div className={`rounded-2xl overflow-hidden transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+          <div className="ing-image rounded-2xl overflow-hidden">
             <Image
               src="/ai-created/why-purple-new.png"
               alt="Why Purple Works"
@@ -72,14 +82,14 @@ export default function Ingredients() {
         </div>
 
         {/* ── DESKTOP: Two-column, cards stretch to match image height ── */}
-        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-stretch transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="hidden md:grid md:grid-cols-2 gap-8 items-stretch">
 
           {/* Left: ingredient cards, each flex-1 to share the full column height */}
           <div className="flex flex-col gap-4">
-            {ingredients.map((ing, i) => (
+            {ingredients.map((ing) => (
               <div key={ing.name}
-                className={`flex-1 rounded-2xl p-5 flex gap-4 items-center border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-                style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 100}ms` }}>
+                className="ing-card flex-1 rounded-2xl p-5 flex gap-4 items-center border"
+                style={{ background: ing.bg, borderColor: ing.border }}>
                 <div className="text-2xl w-10 h-10 flex items-center justify-center flex-shrink-0">{ing.icon}</div>
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
@@ -91,7 +101,7 @@ export default function Ingredients() {
           </div>
 
           {/* Right: image */}
-          <div className="rounded-3xl overflow-hidden">
+          <div className="ing-image rounded-3xl overflow-hidden">
             <Image
               src="/ai-created/why-purple-new.png"
               alt="Why Purple Works"
