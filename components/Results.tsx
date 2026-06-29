@@ -1,27 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export default function Results() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const ctx = gsap.context(() => {
+      // Wipe up from bottom
+      gsap.from(".results-banner", {
+        clipPath: "inset(0 0 100% 0)",
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: { trigger: ".results-banner", start: "top 85%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section id="results" ref={sectionRef} className="bg-[#faf9f7] py-10 md:py-16 overflow-hidden">
       <div className="max-w-6xl mx-auto px-5 md:px-6">
-
-        {/* Transformation banner */}
-        <div className={`transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="results-banner">
           {/* Mobile banner */}
           <div className="md:hidden rounded-2xl overflow-hidden shadow-lg">
             <Image
@@ -45,7 +48,6 @@ export default function Results() {
             />
           </div>
         </div>
-
       </div>
     </section>
   );

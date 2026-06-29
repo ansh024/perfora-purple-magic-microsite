@@ -2,45 +2,46 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 export default function Hero() {
   const productRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
+    // Parallax on scroll
     const onScroll = () => {
       if (!productRef.current) return;
-      const y = window.scrollY;
-      productRef.current.style.transform = `translateY(${y * 0.12}px)`;
+      productRef.current.style.transform = `translateY(${window.scrollY * 0.12}px)`;
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    // Entrance animation
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      tl.from(".hero-line", { y: 80, opacity: 0, stagger: 0.18, duration: 1.1 })
+        .from(".hero-sub",  { y: 30, opacity: 0, duration: 0.9 }, "-=0.5")
+        .from(".hero-cta",  { y: 24, opacity: 0, duration: 0.8 }, "-=0.4")
+        .from(".hero-stat", { y: 20, opacity: 0, duration: 0.7 }, "-=0.35");
+    }, sectionRef);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
+    <section ref={sectionRef} className="relative min-h-screen w-full overflow-hidden bg-[#0a0a0a] flex items-center">
       {/* Background hero image — mobile */}
       <div className="absolute inset-0 md:hidden">
-        <Image
-          src="/ai-created/hero-mobile.png"
-          alt="Purple Beats Yellow"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+        <Image src="/ai-created/hero-mobile.png" alt="Purple Beats Yellow" fill priority className="object-cover object-center" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/70" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
       </div>
       {/* Background hero image — desktop */}
-      <div className="absolute inset-0 hidden md:block">
-        <Image
-          src="/ai-created/hero-desktop.png"
-          alt="Purple Beats Yellow"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
+      <div ref={productRef} className="absolute inset-0 hidden md:block">
+        <Image src="/ai-created/hero-desktop.png" alt="Purple Beats Yellow" fill priority className="object-cover object-center" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/60" />
         <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent" />
       </div>
@@ -48,43 +49,29 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-20 w-full">
         <div className="max-w-xl">
-          {/* Headline */}
-          <h1
-            className="text-white font-bold leading-[0.9] mb-6"
-            style={{
-              fontFamily: "var(--font-playfair)",
-              fontSize: "clamp(44px, 6.8vw, 82px)",
-            }}
-          >
-            Purple
-            <br />
-            <em className="text-[#a78bfa]">Beats</em>
-            <br />
-            Yellow.
+          {/* Headline — each line is its own element for GSAP stagger */}
+          <h1 className="text-white font-bold leading-[0.9] mb-6" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(44px, 6.8vw, 82px)" }}>
+            <span className="hero-line block">Purple</span>
+            <span className="hero-line block"><em className="text-[#a78bfa]">Beats</em></span>
+            <span className="hero-line block">Yellow.</span>
           </h1>
 
           {/* Subline */}
-          <p className="text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
+          <p className="hero-sub text-white/70 text-base md:text-[22px] font-light leading-relaxed mb-10 max-w-none" style={{ fontFamily: "var(--font-inter)" }}>
             Visible teeth whitening in{" "}
             <span className="text-white font-medium">60 seconds</span>.<br />
             No gimmick. Just science.
           </p>
 
           {/* CTA row */}
-          <div className="flex flex-col sm:flex-row gap-4 items-start">
-            <a
-              href="#buy"
-              className="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-semibold text-base px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_32px_rgba(124,58,237,0.5)]"
-            >
+          <div className="hero-cta flex flex-col sm:flex-row gap-4 items-start">
+            <a href="#buy" className="inline-flex items-center gap-2 bg-[#7c3aed] hover:bg-[#6d28d9] text-white font-semibold text-base px-8 py-4 rounded-full transition-all duration-300 hover:shadow-[0_0_32px_rgba(124,58,237,0.5)]">
               Shop Now
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
-            <a
-              href="#science"
-              className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-light pt-1 transition-colors"
-            >
+            <a href="#science" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm font-light pt-1 transition-colors">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1"/>
                 <path d="M8 5v6M5 8l3 3 3-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -94,7 +81,7 @@ export default function Hero() {
           </div>
 
           {/* Review micro-stat */}
-          <div className="flex items-center gap-3 mt-10">
+          <div className="hero-stat flex items-center gap-3 mt-10">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
                 <svg key={i} className="w-4 h-4 text-[#a78bfa]" fill="currentColor" viewBox="0 0 20 20">

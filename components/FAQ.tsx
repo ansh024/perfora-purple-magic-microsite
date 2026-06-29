@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const faqs = [
   {
@@ -39,24 +40,28 @@ const faqs = [
 
 export default function FAQ() {
   const sectionRef = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
   const [open, setOpen] = useState<number | null>(0);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.1 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const ctx = gsap.context(() => {
+      gsap.from(".faq-header", {
+        y: 40, opacity: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: ".faq-header", start: "top 85%" },
+      });
+      gsap.from(".faq-item", {
+        y: 30, opacity: 0, stagger: 0.07, duration: 0.7, ease: "power3.out",
+        scrollTrigger: { trigger: ".faq-item", start: "top 88%" },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section ref={sectionRef} className="bg-[#0a0614] py-10 md:py-16 overflow-hidden">
       <div className="max-w-3xl mx-auto px-5 md:px-6">
 
-        {/* Header */}
-        <div className={`mb-8 md:mb-12 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className="faq-header mb-8 md:mb-12">
           <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-3 md:mb-5">
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">FAQ</span>
           </div>
@@ -65,21 +70,13 @@ export default function FAQ() {
           </h2>
         </div>
 
-        {/* Accordion */}
-        <div className={`flex flex-col gap-3 transition-all duration-700 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+        <div className="flex flex-col gap-3">
           {faqs.map((faq, i) => (
-            <div
-              key={i}
-              className={`rounded-2xl border transition-all duration-300 ${open === i ? "border-[#7c3aed]/60 bg-white/5" : "border-white/10 bg-white/[0.02] hover:border-white/20"}`}
-            >
-              <button
-                onClick={() => setOpen(open === i ? null : i)}
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-              >
-                <span
-                  className={`font-semibold text-sm md:text-base transition-colors ${open === i ? "text-white" : "text-white/70"}`}
-                  style={{ fontFamily: "var(--font-inter)" }}
-                >
+            <div key={i} className={`faq-item rounded-2xl border transition-all duration-300 ${open === i ? "border-[#7c3aed]/60 bg-white/5" : "border-white/10 bg-white/[0.02] hover:border-white/20"}`}>
+              <button onClick={() => setOpen(open === i ? null : i)}
+                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left">
+                <span className={`font-semibold text-sm md:text-base transition-colors ${open === i ? "text-white" : "text-white/70"}`}
+                  style={{ fontFamily: "var(--font-inter)" }}>
                   {faq.q}
                 </span>
                 <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 ${open === i ? "bg-[#7c3aed] rotate-45" : "bg-white/10"}`}>
@@ -90,9 +87,7 @@ export default function FAQ() {
               </button>
               {open === i && (
                 <div className="px-5 pb-5">
-                  <p className="text-white/60 text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>
-                    {faq.a}
-                  </p>
+                  <p className="text-white/60 text-sm leading-relaxed" style={{ fontFamily: "var(--font-inter)" }}>{faq.a}</p>
                 </div>
               )}
             </div>
