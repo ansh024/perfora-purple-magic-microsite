@@ -1,41 +1,25 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const ingredients = [
-  { icon: "🟣", name: "Purple Pigment",       role: "Color Correction",       desc: "Instantly neutralizes yellow tones. Results visible in 60 seconds.", bg: "#f5f3ff", border: "#ddd6fe", label: "#7c3aed" },
-  { icon: "🦷", name: "Nano Hydroxyapatite",  role: "Enamel Repair",          desc: "Remineralizes and strengthens enamel with every brush.",            bg: "#f0f9ff", border: "#bae6fd", label: "#0369a1" },
-  { icon: "🍍", name: "Bromelain & Papain",   role: "Enzymatic Stain Removal",desc: "Pineapple & Papaya derived enzymes that gently break down protein-bound stains.", bg: "#fefce8", border: "#fef08a", label: "#a16207" },
+  { icon: "🟣", name: "Purple Pigment", role: "Color Correction", desc: "Instantly neutralizes yellow tones. Results visible in 60 seconds.", bg: "#f5f3ff", border: "#ddd6fe", label: "#7c3aed" },
+  { icon: "🦷", name: "Nano Hydroxyapatite", role: "Enamel Repair", desc: "Remineralizes and strengthens enamel with every brush.", bg: "#f0f9ff", border: "#bae6fd", label: "#0369a1" },
+  { icon: "🍍", name: "Bromelain & Papain", role: "Enzymatic Stain Removal", desc: "Pineapple & Papaya derived enzymes that gently break down protein-bound stains.", bg: "#fefce8", border: "#fef08a", label: "#a16207" },
 ];
 
 export default function Ingredients() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header
-      gsap.from(".ing-header", {
-        y: 40, opacity: 0, duration: 0.9, ease: "power3.out",
-        scrollTrigger: { trigger: ".ing-header", start: "top 85%" },
-      });
-
-      // Cards — subtle rotateX flip-in with stagger
-      gsap.from(".ing-card", {
-        rotateX: 18, y: 50, opacity: 0, stagger: 0.12, duration: 0.9,
-        ease: "power3.out", transformOrigin: "top center",
-        scrollTrigger: { trigger: ".ing-card", start: "top 85%" },
-      });
-
-      // Image scale reveal
-      gsap.from(".ing-image", {
-        scale: 1.08, opacity: 0, duration: 1.2, ease: "power3.out",
-        scrollTrigger: { trigger: ".ing-image", start: "top 85%" },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -43,11 +27,12 @@ export default function Ingredients() {
       <div className="max-w-6xl mx-auto px-5 md:px-6">
 
         {/* Header */}
-        <div className="ing-header mb-5 md:mb-10">
+        <div className={`mb-5 md:mb-10 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="inline-flex items-center gap-2 border border-[#a78bfa]/30 rounded-full px-4 py-1.5 mb-3 md:mb-5">
             <span className="text-[#a78bfa] text-xs tracking-[0.15em] uppercase font-semibold">What&apos;s Inside</span>
           </div>
-          <h2 className="text-white font-bold mb-2" style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 52px)" }}>
+          <h2 className="text-white font-bold mb-2"
+            style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(22px, 4vw, 52px)" }}>
             Science you can see.<br />
             <em className="text-[#a78bfa]">Ingredients you can trust.</em>
           </h2>
@@ -56,11 +41,15 @@ export default function Ingredients() {
           </p>
         </div>
 
-        {/* ── MOBILE: 2-col grid + image ── */}
+        {/* ── MOBILE: 2×2 ingredient grid + image ── */}
         <div className="md:hidden">
-          <div className="grid grid-cols-2 gap-2.5 mb-4" style={{ perspective: "800px" }}>
-            {ingredients.map((ing) => (
-              <div key={ing.name} className="ing-card rounded-2xl p-3.5 border" style={{ background: ing.bg, borderColor: ing.border }}>
+          <div className="grid grid-cols-2 gap-2.5 mb-4">
+            {ingredients.map((ing, i) => (
+              <div
+                key={ing.name}
+                className={`rounded-2xl p-3.5 border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 80}ms` }}
+              >
                 <div className="text-xl mb-1.5">{ing.icon}</div>
                 <div className="text-[9px] font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
                 <div className="font-bold text-[#1a0a3d] text-sm mb-1" style={{ fontFamily: "var(--font-playfair)" }}>{ing.name}</div>
@@ -68,16 +57,29 @@ export default function Ingredients() {
               </div>
             ))}
           </div>
-          <div className="ing-image rounded-2xl overflow-hidden">
-            <Image src="/ai-created/why-purple-new.png" alt="Why Purple Works" width={900} height={900} className="w-full h-auto" sizes="100vw" />
+
+          {/* Why Purple Works image */}
+          <div className={`rounded-2xl overflow-hidden transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <Image
+              src="/ai-created/why-purple-new.png"
+              alt="Why Purple Works"
+              width={900}
+              height={900}
+              className="w-full h-auto"
+              sizes="100vw"
+            />
           </div>
         </div>
 
-        {/* ── DESKTOP: Two-column ── */}
-        <div className="hidden md:grid md:grid-cols-2 gap-8 items-stretch" style={{ perspective: "1000px" }}>
+        {/* ── DESKTOP: Two-column, cards stretch to match image height ── */}
+        <div className={`hidden md:grid md:grid-cols-2 gap-8 items-stretch transition-all duration-700 delay-300 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+
+          {/* Left: ingredient cards, each flex-1 to share the full column height */}
           <div className="flex flex-col gap-4">
-            {ingredients.map((ing) => (
-              <div key={ing.name} className="ing-card flex-1 rounded-2xl p-5 flex gap-4 items-center border" style={{ background: ing.bg, borderColor: ing.border }}>
+            {ingredients.map((ing, i) => (
+              <div key={ing.name}
+                className={`flex-1 rounded-2xl p-5 flex gap-4 items-center border transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+                style={{ background: ing.bg, borderColor: ing.border, transitionDelay: `${i * 100}ms` }}>
                 <div className="text-2xl w-10 h-10 flex items-center justify-center flex-shrink-0">{ing.icon}</div>
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-widest mb-0.5" style={{ color: ing.label }}>{ing.role}</div>
@@ -87,9 +89,19 @@ export default function Ingredients() {
               </div>
             ))}
           </div>
-          <div className="ing-image rounded-3xl overflow-hidden">
-            <Image src="/ai-created/why-purple-new.png" alt="Why Purple Works" width={600} height={600} className="w-full h-full object-cover" sizes="50vw" />
+
+          {/* Right: image */}
+          <div className="rounded-3xl overflow-hidden">
+            <Image
+              src="/ai-created/why-purple-new.png"
+              alt="Why Purple Works"
+              width={600}
+              height={600}
+              className="w-full h-full object-cover"
+              sizes="50vw"
+            />
           </div>
+
         </div>
 
       </div>
